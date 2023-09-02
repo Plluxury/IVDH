@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'index/css/style.css' %}" rel="stylesheet">
+    <title>хакатон</title>
+</head>
+<body class="one">
+    <div class="a">
+        <img src="{% static 'index/images/logo.png' %}" alt="">
+    </div>
+    <div class="b">
+        <button class="button">
+            <img width="60px" height="70px" id="img" src="{% static 'index/images/micro.png' %}" alt="">
+        </button>
+    </div>
+    <script src="{% static 'index/js/script.js' %}"></script>
+</body>
+</html>
