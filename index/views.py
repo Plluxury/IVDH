@@ -2,8 +2,8 @@ import json
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -13,20 +13,18 @@ def index(request):
 
 @csrf_exempt
 def audio(request):
-    if request.method == "POST":
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect("/audioAPI/")
+    if request.method == 'POST':
+        audio_file = request.FILES.get('voice')
+        if audio_file:
+            # Process or save the audio file as needed.
+            # For example, you can save it to a specific location:
+            with open('index/static/index/media/audio.wav', 'wb') as destination:
+                for chunk in audio_file.chunks():
+                    destination.write(chunk)
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-    return render(request, "name.html", {"form": form})
+    return JsonResponse({'message': 'Audio received and saved successfully.'})
+
+
 
 
 

@@ -21,26 +21,32 @@ navigator.mediaDevices.getUserMedia({ audio: true})
 
         mediaRecorder.addEventListener("stop", function() {
             const audioBlob = new Blob(audioChunks, {type: 'audio/wav' });
-            console.log(audioBlob)
-
-            let fd = new FormData();
-
-            fd.append('voice', audioBlob);
-
-            const requset = new XMLHttpRequest();
-            requset.open("POST", '/audioAPI');
-            requset.send(fd);
-            // sendVoice(fd)
+            sendData(audioBlob);
             audioChunks = [];
         });
     });
 
-// async function sendVoice(form) {
-//     const body = JSON.stringify(Object.fromEntries(form));
-//     let data = await fetch(URL, {
-//         method: 'POST',
-//         body
-//     });
-//     let response = await data.json();
-//
-// }
+function sendData(data) {
+  const XHR = new XMLHttpRequest();
+  const FD = new FormData();
+
+  // Append the audioBlob with the 'voice' field name
+  FD.append('voice', data, 'audio.wav');
+
+  // ALERTS
+    // Define what happens on successful data submission
+  // XHR.addEventListener("load", (event) => {
+  //   alert("Yeah! Data sent and response loaded.");
+  // });
+  //
+  // // Define what happens in case of an error
+  // XHR.addEventListener("error", (event) => {
+  //   alert("Oops! Something went wrong.");
+  // });
+  // Set up our request
+
+  XHR.open("POST", "/audioAPI");
+
+  // Send our FormData object; HTTP headers are set automatically
+  XHR.send(FD);
+}
