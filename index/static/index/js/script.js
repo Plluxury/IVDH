@@ -16,10 +16,7 @@ navigator.mediaDevices.getUserMedia({ audio: true})
 
         document.querySelector('#stop').addEventListener('click', function(){
             mediaRecorder.stop();
-            document.getElementById("Play").addEventListener("click", function(music){
-                    let audioElement = document.getElementById("Audio");
-                    audioElement.play();
-                }, false);
+            location.reload();
         });
 
         mediaRecorder.addEventListener("stop", function() {
@@ -29,10 +26,6 @@ navigator.mediaDevices.getUserMedia({ audio: true})
         });
     });
 
-document.getElementById("Play").addEventListener("click", function(music){
-  let audioElement = document.getElementById("Audio");
-  audioElement.play();
-}, false);
 
 function sendData(data) {
   const XHR = new XMLHttpRequest();
@@ -58,3 +51,10 @@ function sendData(data) {
   // Send our FormData object; HTTP headers are set automatically
   XHR.send(FD);
 }
+
+
+
+document.getElementById("Play").addEventListener("click", function(music){
+  let audioElement = document.getElementById("Audio");
+  audioElement.play();
+}, false);
