@@ -4,7 +4,7 @@ navigator.mediaDevices.getUserMedia({ audio: true})
     .then(stream => {
         const mediaRecorder = new MediaRecorder(stream);
 
-        document.querySelector('#start').addEventListener('click', function(){
+        document.querySelector('.first_button').addEventListener('click', function(){
             mediaRecorder.start();
 
         });
@@ -13,7 +13,7 @@ navigator.mediaDevices.getUserMedia({ audio: true})
             audioChunks.push(event.data);
         });
 
-        document.querySelector('#stop').addEventListener('click', function(){
+        document.querySelector('.second_button').addEventListener('click', function(){
             mediaRecorder.stop();
             location.reload();
             // wait 5 sec
@@ -35,18 +35,6 @@ function sendData(data) {
 
   // Append the audioBlob with the 'voice' field name
   FD.append('voice', data, 'audio.wav');
-
-  // // ALERTS
-  //   // Define what happens on successful data submission
-  // XHR.addEventListener("load", (event) => {
-  //   alert("Yeah! Data sent and response loaded.");
-  // });
-  //
-  // // Define what happens in case of an error
-  // XHR.addEventListener("error", (event) => {
-  //   alert("Oops! Something went wrong.");
-  // });
-
 
   XHR.open("POST", "/audioAPI");
 

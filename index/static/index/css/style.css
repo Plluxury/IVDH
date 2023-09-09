@@ -1,50 +1,116 @@
-.one {
-    background-color: #FF0F00;
-    
+{% load static %}'
+body {
+    margin: 0;
+    padding: 0;
 }
-#button1{
-    margin: 10px;
-    padding: 25px;
-    display: flex;
-    justify-content: center;
-    height: 100px;
-    width: 100px;
-}
-#button2{
-    margin: 10px;
-    padding: 25px;
-    display: flex;
-    justify-content: center;
-    height: 100px;
-    width: 100px;
-}
-#stop{
+
+.main {
     position: absolute;
-    top: 50%;
-    left: 55%;
+    z-index: 0;
+    width: 99vw;
+    height: 99vh;
+    background-size: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.hadder_space {
+    width: 100vw;
+    height: 10vh;
+}
+img {
+    border: none;
+}
+.hadder
+{
+    position: absolute;
+    border: none;
+    z-index: 1;
+    width: 100vw;
+    height: 10vh;
+    background-color: rgba(0,0,0,0.2);
+    background-size: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+
+.middle_space {
+    width: 100vw;
+    height:80vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+.button_space {
+    position: relative;
+    width: 35%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
 }
 
-#start{
-    position: absolute;
-    top: 50%;
-    left: 45%;
+
+.first_button, .second_button {
+    width: 45%;
+    height: 40%;
+    background-color: #e31b1a;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    transition: 0.8s;
+    box-shadow: 10px 5px 15px black;
 
 }
+
+.first_button:hover, .second_button:hover {
+    background-color: #981414;
+    transition: 0.8s;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px black;
+
+}
+.first_button:hover p, .second_button:hover p {
+    color: #ffffff;
+    transition: 0.8s;
+    opacity: 1;
+
+}
+
+.footer {
+    width: 100vw;
+    display: flex;
+    align-items: end;
+    text-align: center;
+    justify-content: space-around;
+    height:10vh;
+}
+
+p {
+    color: #ffffff;
+    font: bold 1.5em "Arial", sans-serif;
+    transition: 0.8s;
+    opacity: 0.7;
+}
+p.p_footer {
+    color: #ffffff;
+    font:  0.6em "Arial", sans-serif;
+    opacity: 1;
+    bottom: 0;
+}
+
 
 #Audio{
+    position: absolute;
     visibility: hidden;
 }
 #Play {
     visibility: hidden;
+    position: absolute;
 }
-
-
-
-
 

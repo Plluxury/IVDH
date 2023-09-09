@@ -4,28 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'index/css/style.css' %}" rel="stylesheet">
-    <title>хакатон</title>
+    <link rel="stylesheet" href="{% static 'index/css/style.css' %}">
+    <title>Главная страница</title>
 </head>
-<body class="one">
-    <div class="a">
-        <img src="{% static 'index/images/logo.png' %}" alt="">
-    </div>
-    <div id="stop">
-        <button id="button1">
-            stop record
-        </button>
-    </div>
-    <div id="start">
-        <button id="button2">
-            start record
-        </button>
-    </div>
-
+<body>
     <audio id="Audio" controls>
         <source src="{% static 'index/media/audio.wav' %}" type="audio/wav">
     </audio>
     <button id="Play">Play Button</button>
+    <script src="{% static 'index/js/script.js' %}"></script>
+    <img class="main" src="{% static 'index/images/bg.jpg' %}">
+        <img class="hadder" src="{% static 'index/images/Logo.png' %}">
+        </img>
+        <div class="hadder_space">
+        </div>
+        <div class="middle_space">
+            <div class="button_space">
+                <div class="first_button"><p>Начать</p></div>
+                <div class="second_button"><p>Остановить</p></div>
+            </div>
+        </div>
+        <div class="footer">
+            <p class="p_footer">Продукт разработан командой ISIP <br> 2023 год</p>
+        </div>
+    </img>
 
     <script src="{% static 'index/js/script.js' %}"></script>
 </body>
