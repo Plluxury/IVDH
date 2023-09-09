@@ -11,12 +11,13 @@ navigator.mediaDevices.getUserMedia({ audio: true})
         let audioChunks = [];
         mediaRecorder.addEventListener("dataavailable",function(event) {
             audioChunks.push(event.data);
-            console.log(audioChunks)
         });
 
         document.querySelector('#stop').addEventListener('click', function(){
             mediaRecorder.stop();
             location.reload();
+            // wait 5 sec
+            // play sound
         });
 
         mediaRecorder.addEventListener("stop", function() {
@@ -24,6 +25,7 @@ navigator.mediaDevices.getUserMedia({ audio: true})
             sendData(audioBlob);
             audioChunks = [];
         });
+        document.getElementById("Play").click();
     });
 
 
@@ -34,16 +36,16 @@ function sendData(data) {
   // Append the audioBlob with the 'voice' field name
   FD.append('voice', data, 'audio.wav');
 
-  // ALERTS
-    // Define what happens on successful data submission
-  XHR.addEventListener("load", (event) => {
-    alert("Yeah! Data sent and response loaded.");
-  });
-
-  // Define what happens in case of an error
-  XHR.addEventListener("error", (event) => {
-    alert("Oops! Something went wrong.");
-  });
+  // // ALERTS
+  //   // Define what happens on successful data submission
+  // XHR.addEventListener("load", (event) => {
+  //   alert("Yeah! Data sent and response loaded.");
+  // });
+  //
+  // // Define what happens in case of an error
+  // XHR.addEventListener("error", (event) => {
+  //   alert("Oops! Something went wrong.");
+  // });
 
 
   XHR.open("POST", "/audioAPI");
@@ -54,7 +56,7 @@ function sendData(data) {
 
 
 
-document.getElementById("Play").addEventListener("click", function(music){
-  let audioElement = document.getElementById("Audio");
-  audioElement.play();
+document.getElementById("Play").addEventListener("click", function (music) {
+    let audioElement = document.getElementById("Audio");
+    audioElement.play();
 }, false);

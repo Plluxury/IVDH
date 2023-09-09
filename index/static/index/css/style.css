@@ -37,6 +37,13 @@
 
 }
 
+#Audio{
+    visibility: hidden;
+}
+#Play {
+    visibility: hidden;
+}
+
 
 
 
