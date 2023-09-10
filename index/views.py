@@ -42,7 +42,7 @@ def audio(request):
                 print(input_after_model)
 
                 output = gTTS(text=input_after_model, lang="ru", slow=False)
-                output.save("answer.wav")
+                output.save("index/static/index/media/answer.wav")
                 os.system("start answer.wav")
 
     return JsonResponse({'message': 'Audio received and saved successfully.'})

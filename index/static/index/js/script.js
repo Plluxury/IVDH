@@ -25,7 +25,7 @@ navigator.mediaDevices.getUserMedia({ audio: true})
             sendData(audioBlob);
             audioChunks = [];
         });
-        document.getElementById("Play").click();
+        // document.getElementById("Play").click();
     });
 
 
