@@ -7,11 +7,14 @@ from django.views.decorators.csrf import csrf_exempt
 from json import dumps
 import speech_recognition as sr
 from gtts import gTTS
+from pydub import AudioSegment
+from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from django.http import JsonResponse
+from .nlp import generate_text
 
 def index(request):
     return render(request, 'index/index.html')
-
-
 
 @csrf_exempt
 def audio(request):
@@ -23,43 +26,26 @@ def audio(request):
             with open('index/static/index/media/audio.wav', 'wb') as destination:
                 for chunk in audio_file.chunks():
                     destination.write(chunk)
-#test
-            r = sr.Recognizer()
-            with sr.AudioFile('index/static/index/media/audio.wav') as source:
-                audio_data = r.record(source)
-                request = r.recognize_google(audio_data, language="ru-RU")
-                
-                response = gTTS(text=request, lang="ru", slow=False)
-                response.save("answer.wav")
 
+            input_audio_file = 'index/static/index/media/audio.wav'  # Replace with your audio file path
+            audiosegment = AudioSegment.from_file(input_audio_file)
+
+            audiosegment.export('index/static/index/media/output.wav', format='wav')
+            r = sr.Recognizer()
+            with sr.AudioFile('index/static/index/media/output.wav') as source:
+
+                audio_data = r.record(source)
+                input = r.recognize_google(audio_data, language="ru-RU")
+                print(input)
+                input_after_model = generate_text(input)
+
+                output = gTTS(text=input_after_model, lang="ru", slow=False)
+                output.save("answer.wav")
 
     return JsonResponse({'message': 'Audio received and saved successfully.'})
 
-# from transformers import pipeline
-# from transformers import AutoTokenizer, AutoModelForCausalLM
-#
-#
-#
-# def remove_duplicate_words(input_str):
-#     words = input_str.split()  # Разбиваем строку на слова
-#     unique_words = []  # Здесь будем хранить уникальные слова
-#     for word in words:
-#         if word not in unique_words:
-#             unique_words.append(word)
-#     return ' '.join(unique_words)
-# # Load model directly
-# prompt = 'при включении тумблера топливный насос вал топливоподкачивающего агрегата не вращается.контактор ктн не включается'
-#
-# tokenizer = AutoTokenizer.from_pretrained("arsenZabara/RJD-hak", Legacy=True)
-# model = AutoModelForCausalLM.from_pretrained("arsenZabara/RJD-hak")
-#
-# pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_length=200)
-# result = pipe(f"{prompt}")
-#
-# temp = result[0]['generated_text'].replace(prompt, '').replace('.', ' ')
-# res = remove_duplicate_words((temp))
-#
-# print(res)
+
+
 
 
 
