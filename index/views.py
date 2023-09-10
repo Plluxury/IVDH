@@ -12,7 +12,7 @@ from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from django.http import JsonResponse
 from .nlp import generate_text
-
+import os
 def index(request):
     return render(request, 'index/index.html')
 
@@ -27,20 +27,23 @@ def audio(request):
                 for chunk in audio_file.chunks():
                     destination.write(chunk)
 
-            input_audio_file = 'index/static/index/media/audio.wav'  # Replace with your audio file path
+            input_audio_file = 'index/static/index/media/audio.wav'  # problem
             audiosegment = AudioSegment.from_file(input_audio_file)
 
             audiosegment.export('index/static/index/media/output.wav', format='wav')
-            r = sr.Recognizer()
-            with sr.AudioFile('index/static/index/media/output.wav') as source:
 
+            with sr.AudioFile('index/static/index/media/output.wav') as source:
+                r = sr.Recognizer()  # problem
                 audio_data = r.record(source)
-                input = r.recognize_google(audio_data, language="ru-RU")
-                print(input)
-                input_after_model = generate_text(input)
+                inp = r.recognize_google(audio_data, language="ru-RU")
+                print(inp)
+
+                input_after_model = generate_text(inp)
+                print(input_after_model)
 
                 output = gTTS(text=input_after_model, lang="ru", slow=False)
                 output.save("answer.wav")
+                os.system("start answer.wav")
 
     return JsonResponse({'message': 'Audio received and saved successfully.'})
 
